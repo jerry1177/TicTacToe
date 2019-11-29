@@ -18,8 +18,10 @@ public class GameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
-        Boolean isOnePlayer = getIntent().getExtras().getBoolean("yourBoolName");
 
+        Boolean isOnePlayer = getIntent().getExtras().getBoolean("isOnePlayer");
+
+        // create game instance
         game = new TicTacToeGame(true, isOnePlayer);
 
         // reference all views
@@ -36,6 +38,11 @@ public class GameActivity extends AppCompatActivity {
 
     }
 
+    /**
+     *
+     * @param view view that calls the function
+     */
+
     public void viewPressed(View view) {
         if (game.isGameOver()) {
             // do nothing!
@@ -50,8 +57,7 @@ public class GameActivity extends AppCompatActivity {
 
             // if the game is single player, play against AI
             if (game.isSinglePlayer()) {
-                Toast.makeText(this, "is single player", Toast.LENGTH_SHORT).show();
-                if (game.getTurn() && game.isPositionFree(position)) {
+                if (game.isPositionFree(position)) {
                     // make player move
                     image.setImageResource(R.drawable.red);
                     image.animate().alphaBy(1f).setDuration(800);
@@ -81,6 +87,7 @@ public class GameActivity extends AppCompatActivity {
 
             // check to see if game is over
             if (game.isGameOver()) {
+                // determine the game outcome
                 if (game.getWinningPlayer() == 1) {
                     Toast.makeText(this, "Player 1 wins!!", Toast.LENGTH_SHORT).show();
                 } else if (game.getWinningPlayer() == -1) {

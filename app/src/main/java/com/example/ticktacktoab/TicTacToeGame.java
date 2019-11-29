@@ -60,13 +60,18 @@ public class TicTacToeGame {
     }
 
     /**
-     *
+     * This function checks to see if it is the first player's turn
      * @return returns true if it is first player's turn
      */
-    // gets the players turn
+
     public boolean getTurn(){
         return isFirstPlayerTurn;
     }
+
+    /**
+     * This function check to see if the game is in single player mode
+     * @return returns true if game is in single player mode
+     */
 
     public boolean isSinglePlayer(){
         return isOnePlayer;
@@ -132,6 +137,11 @@ public class TicTacToeGame {
         return gameState[position-1] == 0;
     }
 
+    /**
+     * This function checks to see if the game is over or not
+     * @return returns true if the game is over
+     */
+
     public boolean isGameOver() {
         return gameOver;
     }
@@ -144,7 +154,11 @@ public class TicTacToeGame {
         return winningPlayer;
     }
 
-    //
+    /**
+     * This function returns checks to see if a player has won
+     * @param stateOfGame // takes the current state of the game
+     * @return returns 1 if player1 won, -1 if player2 won, and 0 if no one won
+     */
     private int checkGameState(int [] stateOfGame){
         if ((stateOfGame[0] == 1 && stateOfGame[1] == 1 && stateOfGame[2] == 1)
                 || (stateOfGame[3] == 1 && stateOfGame[4] == 1 && stateOfGame[5] == 1)
@@ -169,6 +183,10 @@ public class TicTacToeGame {
         }
     }
 
+    /**
+     * This function allows the AI to make a move
+     * @return returns the position that the AI wants to take
+     */
 
     public int playAI() {
         int action = minimaxAB(gameState, isFirstPlayerTurn);
@@ -180,6 +198,8 @@ public class TicTacToeGame {
         nextTurn(action+1);
         return action;
     }
+
+    // --------- AI minimax alpha beta algorithm ----------
 
     private int minimaxAB(int[]statOfGame, boolean firstPlayerTurn){
         int action;
