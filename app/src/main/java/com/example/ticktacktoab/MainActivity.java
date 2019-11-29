@@ -9,10 +9,17 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
+    private boolean playerOneStarts;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        playerOneStarts = true;
+    }
+
+    public void playerStarts(View view) {
+        playerOneStarts = !playerOneStarts;
     }
 
     public void buttonPressed(View view) {
@@ -22,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
         } else {
             intent.putExtra("isOnePlayer", true);
         }
+        intent.putExtra("playerOneStarts", playerOneStarts);
         startActivity(intent);
     }
 }

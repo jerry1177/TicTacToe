@@ -9,7 +9,6 @@ public class TicTacToeGame {
     private int winningPlayer;
     private int turn;
 
-
     // --- Constuctors ---
 
     /**
@@ -152,6 +151,23 @@ public class TicTacToeGame {
      */
     public int getWinningPlayer(){
         return winningPlayer;
+    }
+
+    /**
+     * This function resets the game
+     * @param isFirstPlayerTurn False if you want Ai to go first
+     * @param isOnePlayer False if you want game to be two players
+     */
+
+    public void resetGame(boolean isFirstPlayerTurn, boolean isOnePlayer) {
+        for (int i = 0; i < gameState.length;i++){
+            gameState[i] = 0;
+        }
+        this.isFirstPlayerTurn = isFirstPlayerTurn;
+        this.isOnePlayer = isOnePlayer;
+        gameOver = false;
+        turn = 0;
+        winningPlayer = 0;
     }
 
     /**

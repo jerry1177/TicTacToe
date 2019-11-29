@@ -10,8 +10,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class GameActivity extends AppCompatActivity {
 
-    TicTacToeGame game;
     ImageView images[];
+    TicTacToeGame game;
+    private boolean isOnePlayer;
+    private boolean playerOneStarts;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,10 +21,12 @@ public class GameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game);
 
 
-        Boolean isOnePlayer = getIntent().getExtras().getBoolean("isOnePlayer");
+        isOnePlayer = getIntent().getExtras().getBoolean("isOnePlayer");
+        playerOneStarts = getIntent().getExtras().getBoolean("playerOneStarts");
+
 
         // create game instance
-        game = new TicTacToeGame(true, isOnePlayer);
+        game = new TicTacToeGame(playerOneStarts, isOnePlayer);
 
         // reference all views
         images = new ImageView[9];
@@ -36,18 +40,24 @@ public class GameActivity extends AppCompatActivity {
         images[7] = findViewById(R.id.image8);
         images[8] = findViewById(R.id.image9);
 
+
+        // if AI goes first
+        if (isOnePlayer && !playerOneStarts) {
+            AIMove();
+        }
+
     }
 
     /**
-     *
+     * This function gets called every time player makes a move
      * @param view view that calls the function
      */
 
     public void viewPressed(View view) {
         if (game.isGameOver()) {
-            // do nothing!
-
-            //Toast.makeText(this,"game over!",Toast.LENGTH_SHORT).show();
+            // reset game!
+            resetGame();
+            Toast.makeText(this,"reset game!",Toast.LENGTH_SHORT).show();
         } else {
             // if the game is not over
 
@@ -57,16 +67,13 @@ public class GameActivity extends AppCompatActivity {
 
             // if the game is single player, play against AI
             if (game.isSinglePlayer()) {
-                if (game.isPositionFree(position)) {
+                if (game.isPositionFree(position) && game.getTurn()) {
                     // make player move
                     image.setImageResource(R.drawable.red);
                     image.animate().alphaBy(1f).setDuration(800);
                     game.nextTurn(position);
                     if (!game.isGameOver()) {
-                        // make AI move
-                        int aiPos = game.playAI();
-                        images[aiPos].setImageResource(R.drawable.yellow);
-                        images[aiPos].animate().alphaBy(1f).setDuration(800);
+                        AIMove();
                     }
 
 
@@ -88,14 +95,48 @@ public class GameActivity extends AppCompatActivity {
             // check to see if game is over
             if (game.isGameOver()) {
                 // determine the game outcome
-                if (game.getWinningPlayer() == 1) {
+
+                // cases for first player to win
+                if ((game.getWinningPlayer() == 1 && isOnePlayer)
+                || (game.getWinningPlayer() == 1 && !isOnePlayer && playerOneStarts)
+                || (game.getWinningPlayer() == -1 && !isOnePlayer && !playerOneStarts)) {
                     Toast.makeText(this, "Player 1 wins!!", Toast.LENGTH_SHORT).show();
-                } else if (game.getWinningPlayer() == -1) {
-                    Toast.makeText(this, "Player 2 wins!", Toast.LENGTH_SHORT).show();
+
+                // cases for AI to win
+                } else if (game.getWinningPlayer() == -1 && isOnePlayer) {
+                    Toast.makeText(this, "AI Wins!", Toast.LENGTH_SHORT).show();
+
+                // cases for player 2 to win
+                } else if ((game.getWinningPlayer() == -1 && !isOnePlayer && playerOneStarts)
+                || (game.getWinningPlayer() == 1 && !isOnePlayer && !playerOneStarts)){
+                    Toast.makeText(this, "Player 2 Wins!", Toast.LENGTH_SHORT).show();
+
                 } else {
                     Toast.makeText(this, "Tie!", Toast.LENGTH_SHORT).show();
                 }
             }
+        }
+    }
+
+    private void AIMove() {
+        // make AI move
+        int aiPos = game.playAI();
+        images[aiPos].setImageResource(R.drawable.yellow);
+        images[aiPos].animate().alphaBy(1f).setDuration(800);
+    }
+
+    /**
+     * This function resets the game and updates the UI
+     */
+    private void resetGame() {
+        game.resetGame(playerOneStarts,isOnePlayer);
+        for (int i = 0; i < images.length;i++) {
+            if (images[i].getAlpha() == 1f)
+                images[i].animate().alphaBy(-1f);
+        }
+
+        if (!playerOneStarts && isOnePlayer) {
+            AIMove();
         }
     }
 }
