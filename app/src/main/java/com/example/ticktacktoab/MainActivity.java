@@ -18,7 +18,10 @@ public class MainActivity extends AppCompatActivity {
     public void buttonPressed(View view) {
         Intent intent = new Intent(this, GameActivity.class);
         if (view.getTag().toString().equals("2")) {
-            intent.putExtra("isOnePlayer", false);
+            intent.putExtra("yourBoolName", false);
+            //Toast.makeText(this, "two Players", Toast.LENGTH_SHORT).show();
+        } else {
+            intent.putExtra("yourBoolName", true);
         }
         startActivity(intent);
     }

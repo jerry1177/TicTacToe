@@ -6,13 +6,152 @@
     android:layout_height="match_parent"
     tools:context=".GameActivity">
 
-    <TextView
-        android:id="@+id/gameView"
+    <TableLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
+        android:gravity="center_vertical"
+        android:stretchColumns="3"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/image1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="0"
+                android:layout_margin="12dp"
+                android:layout_weight="1"
+                android:alpha="0"
+                android:onClick="viewPressed"
+                android:tag="1"
+                app:srcCompat="@drawable/red" />
+
+            <ImageView
+                android:id="@+id/image2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="1"
+                android:layout_margin="12dp"
+                android:layout_weight="1"
+                android:alpha="0"
+                android:onClick="viewPressed"
+                android:tag="2"
+                app:srcCompat="@drawable/red" />
+
+            <ImageView
+                android:id="@+id/image3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_column="2"
+                android:layout_margin="12dp"
+                android:layout_weight="1"
+                android:alpha="0"
+                android:onClick="viewPressed"
+                android:tag="3"
+                app:srcCompat="@drawable/red" />
+        </TableRow>
+
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/image4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="0"
+                android:layout_margin="12dp"
+                android:layout_weight="1"
+                android:alpha="0"
+                android:onClick="viewPressed"
+                android:tag="4"
+                app:srcCompat="@drawable/red" />
+
+            <ImageView
+                android:id="@+id/image5"
+                android:layout_width="wrap_content"
+                android:layout_height="140dp"
+                android:layout_column="1"
+                android:layout_margin="12dp"
+                android:layout_weight="1"
+                android:alpha="0"
+                android:onClick="viewPressed"
+                android:tag="5"
+                app:srcCompat="@drawable/red" />
+
+            <ImageView
+                android:id="@+id/image6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="2"
+                android:layout_margin="12dp"
+                android:layout_weight="1"
+                android:alpha="0"
+                android:onClick="viewPressed"
+                android:tag="6"
+                app:srcCompat="@drawable/red" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/image7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="0"
+                android:layout_margin="12dp"
+                android:layout_weight="1"
+                android:alpha="0"
+                android:onClick="viewPressed"
+                android:tag="7"
+                app:srcCompat="@drawable/red" />
+
+            <ImageView
+                android:id="@+id/image8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="1"
+                android:layout_margin="12dp"
+                android:layout_weight="1"
+                android:alpha="0"
+                android:onClick="viewPressed"
+                android:tag="8"
+                app:srcCompat="@drawable/red" />
+
+            <ImageView
+                android:id="@+id/image9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="2"
+                android:layout_margin="12dp"
+                android:layout_weight="1"
+                android:alpha="0"
+                android:onClick="viewPressed"
+                android:tag="9"
+                app:srcCompat="@drawable/red" />
+        </TableRow>
+    </TableLayout>
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:foregroundGravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/board" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
